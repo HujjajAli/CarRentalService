@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `carrental` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `carrental`;
 -- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
 --
 -- Host: localhost    Database: carrental
@@ -30,9 +32,9 @@ CREATE TABLE `cars` (
   `model` varchar(45) DEFAULT NULL,
   `year` int DEFAULT NULL,
   `price` float DEFAULT NULL,
-  `isBooked` varchar(1) DEFAULT NULL,
+  `isBooked` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`car_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +43,7 @@ CREATE TABLE `cars` (
 
 LOCK TABLES `cars` WRITE;
 /*!40000 ALTER TABLE `cars` DISABLE KEYS */;
-INSERT INTO `cars` VALUES (1,2,'Toyota','Toyota Corolla','Altis Grande',2023,8000.56,NULL),(2,2,'Toyota','Toyota Corolla','Altis Grande',2022,87500,NULL),(3,2,'Toyota','Toyota Corolla','XLI',2019,4500,NULL),(4,2,'Toyota','Toyota Fortuner','Fortuner Legeneder',2018,2018,'Y'),(5,4,'Toyota','Toyota Fortuner','Fortuner GR-S',2016,1150,NULL),(6,4,'Suzuki','Alto','VXR',2020,1200,NULL),(7,4,'Suzuki','Mehran','VXL',2017,790,NULL);
+INSERT INTO `cars` VALUES (1,2,'Toyota','Toyota Corolla','Altis Grande',2023,8000.56,NULL),(2,2,'Toyota','Toyota Corolla','Altis Grande',2022,87500,NULL),(3,2,'Toyota','Toyota Corolla','XLI',2019,4500,NULL),(4,2,'Toyota','Toyota Fortuner','Fortuner Legeneder',2018,2018,'Y'),(5,4,'Toyota','Toyota Fortuner','Fortuner GR-S',2016,1150,NULL),(6,4,'Suzuki','Alto','VXR',2020,1200,NULL),(7,4,'Suzuki','Mehran','VXL',2017,790,NULL),(8,2,'Suzuki','Mehran','VXL',2014,650,NULL);
 /*!40000 ALTER TABLE `cars` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-18  0:34:53
+-- Dump completed on 2024-12-19  1:50:58

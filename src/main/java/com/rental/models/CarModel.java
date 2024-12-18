@@ -10,6 +10,7 @@ public class CarModel {
 	private double price;
 	private long   appUserid;
 	private String status;
+	private String owner;
 	
 	
 	public long getCarId() {
@@ -59,6 +60,12 @@ public class CarModel {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getOwner() {
+		return owner;
+	}
+	public void setOwner(String owner) {
+		this.owner = owner;
 	}
 	
 }

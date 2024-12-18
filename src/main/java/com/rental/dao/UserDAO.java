@@ -99,4 +99,28 @@ public class UserDAO {
         }
         return false;
     }
+    
+    public UserModel getUserById(long userId){
+    	UserModel userModel = null;
+    	String query = "select * from "+TBL_USER+" WHERE "+UtilConstants.APP_USER_ID+" = ?";
+        try (Connection conn = getConnection(UtilConstants.DRIVER,UtilConstants.DB_URL, UtilConstants.DB_USER, UtilConstants.DB_PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+
+               stmt.setLong(1, userId);
+
+               ResultSet rs = stmt.executeQuery();
+               if (rs.next()) {
+               	   userModel  = new UserModel();
+               	
+               	   userModel.setAppUserid(rs.getLong(UtilConstants.APP_USER_ID));
+                   userModel.setRole(rs.getString(USER_ROLE));
+                   userModel.setUsername(rs.getString(USER_USERNAME));
+                   userModel.setPassword(rs.getString(USER_PASSWORD));
+                   userModel.setName(rs.getString(USER_FULLNAME));
+               }
+           } catch (SQLException e) {
+               e.printStackTrace();
+           }
+           return userModel; // Returns the role if valid, otherwise null
+    }
 }

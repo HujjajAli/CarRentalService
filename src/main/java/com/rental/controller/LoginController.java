@@ -1,6 +1,8 @@
 package com.rental.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +14,7 @@ import com.rental.constants.ViewsConstants;
 import com.rental.dao.CarDAO;
 import com.rental.dao.CustomerDAO;
 import com.rental.dao.UserDAO;
+import com.rental.models.CarModel;
 import com.rental.models.UserModel;
 
 
@@ -45,7 +48,12 @@ public class LoginController extends HttpServlet {
                     request.getRequestDispatcher(ViewsConstants.CLIENT_DASHBOARD_PAGE).forward(request, response);
                     break;
                 case UtilConstants.CUSTOMER_ROLE:
-                	request.setAttribute("customerCars", carDAO.getAllCars());
+                	List<CarModel> listOfCars =  carDAO.getAllCars();
+                	listOfCars.forEach(e->{
+                		UserModel fetchUserModel = userDAO.getUserById(e.getAppUserid());
+                		e.setOwner(fetchUserModel.getName());
+                	});
+                	request.setAttribute("customerCars", listOfCars);
                     request.getRequestDispatcher(ViewsConstants.CUSTOMER_DASHBOARD_PAGE).forward(request, response);
                     break;
             }

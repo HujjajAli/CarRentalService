@@ -2,9 +2,9 @@ package com.rental.constants;
 
 public class UtilConstants {
 	
-    //public static final String DB_URL = "jdbc:mysql://localhost:3306/carrental";
-    //public static final String DB_USER = "root";
-    //public static final String DB_PASSWORD = "admin";
+    /*public static final String DB_URL = "jdbc:mysql://localhost:3306/carrental";
+    public static final String DB_USER = "root";
+    public static final String DB_PASSWORD = "admin";*/
     
     public static final String DB_URL = "jdbc:mysql://52.230.87.172:3306/carrental?createDatabaseIfNotExist=true";
     public static final String DB_USER = "root";

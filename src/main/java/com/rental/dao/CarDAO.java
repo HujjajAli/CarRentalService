@@ -70,6 +70,7 @@ public class CarDAO {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
             	CarModel car = new CarModel();
+            	car.setCarId(rs.getLong(CAR_ID));
             	car.setAppUserid(rs.getLong(APP_USER_ID));
             	car.setCarCompany(rs.getString(COMPANY));
             	car.setCarName(rs.getString(CAR_NAME));
@@ -252,6 +253,23 @@ public class CarDAO {
 	       e.printStackTrace();
 	       return false;
 	   }
+    }
+    
+    public boolean deleteClientCarById(long carId) {
+        String query = "DELETE FROM " + TBL_CAR + " WHERE "+CAR_ID+" = ?";
+        
+        try (Connection conn = getConnection(UtilConstants.DRIVER, UtilConstants.DB_URL, UtilConstants.DB_USER, UtilConstants.DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+             
+            stmt.setLong(1, carId); // Set the car ID in the query
+            
+            int rowsDeleted = stmt.executeUpdate(); // Execute the delete query
+            return rowsDeleted > 0; // Return true if at least one row was deleted
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Return false in case of an exception
+        }
     }
 
 }

@@ -216,6 +216,7 @@ input[type="reset"]:hover {
 %>
 
 <form action="addEditCarServlet" method="post">
+<input type="hidden" value="<%=request.getAttribute("carId")%>" name="carId">
 		<table>
 			<tr>
 				<td>
@@ -232,8 +233,13 @@ input[type="reset"]:hover {
 			    <td>Select Company: </td>
 			    <td>
 			        <select name="company" id="company">
-			            <% for (CompanyModel company : companies) { %>
-			                <option value="<%= company.getCompanyName() %>"><%= company.getCompanyName() %></option>
+			            <%String selComp = (String)request.getAttribute("selComp"); 
+			            for (CompanyModel company : companies) { %>
+			                <%if(company.getCompanyName().equals(selComp)) {%>
+			                	<option selected="selected" value="<%= company.getCompanyName() %>"><%= company.getCompanyName() %></option>
+			                <%}else{ %>
+			                	<option value="<%= company.getCompanyName() %>"><%= company.getCompanyName() %></option>
+			                <%} %>
 			            <% } %>
 			        </select>
 			    </td>
@@ -242,9 +248,14 @@ input[type="reset"]:hover {
                 <td>Select Car Name: </td>
                 <td>
                     <select name="carName" id="carName">
-                        <option value="">-- Select Car Name --</option>
-                        <% for (CarNameModel carNameModel : carNames) { %>
-			                <option value="<%= carNameModel.getCarName() %>"><%= carNameModel.getCarName() %></option>
+                        <% String selCarNames = (String)request.getAttribute("selCarNames");
+                        for (CarNameModel carNameModel : carNames) { %>
+                            <%if(carNameModel.getCarName().equals(selCarNames)) {%>
+			                	<option selected="selected" value="<%= carNameModel.getCarName() %>"><%= carNameModel.getCarName() %></option>
+			                <%}else{ %>
+			                	<option value="<%= carNameModel.getCarName() %>"><%= carNameModel.getCarName() %></option>
+			                <%} %>
+			                
 			            <% } %>
                     </select>
                 </td>
@@ -254,9 +265,14 @@ input[type="reset"]:hover {
                 <td>Select Car Model: </td>
                 <td>
                     <select name="carModel" id="carModel">
-                        <option value="">-- Select Car Model --</option>
-                        <% for (CarNameVariantModel carNameVariantModel : carNameVariants) { %>
-			                <option value="<%= carNameVariantModel.getModel() %>"><%= carNameVariantModel.getModel() %></option>
+                        <% String selCarModelVariants = (String)request.getAttribute("selCarModelVariants");
+                        for (CarNameVariantModel carNameVariantModel : carNameVariants) { %>
+                        	<%if(carNameVariantModel.getModel().equals(selCarModelVariants)) {%>
+			                	<option selected="selected" value="<%= carNameVariantModel.getModel() %>"><%= carNameVariantModel.getModel() %></option>
+			                <%}else{ %>
+			                	<option value="<%= carNameVariantModel.getModel() %>"><%= carNameVariantModel.getModel() %></option>
+			                <%} %>
+			                
 			            <% } %>
                     </select>
                 </td>
@@ -265,9 +281,10 @@ input[type="reset"]:hover {
                 <td>Select Car Year: </td>
                 <td>
                     <select name="carYear" id="carYear">
-                        <option value="">-- Select Car Year --</option>
-                        <% for (int i=Year.now().getValue();i>=1950;i--) { %>
+                        <%  for (int i=Year.now().getValue();i>=1950;i--) { %>
+                           
 			                <option value="<%= i %>"><%= i %></option>
+			                
 			            <% } %>
                     </select>
                 </td>
@@ -275,7 +292,7 @@ input[type="reset"]:hover {
             
             <tr>
 				<td>Rent Price : </td>
-				<td><input type="text" name="price"></td>
+				<td><input type="text" name="price" value="<%=request.getAttribute("price")%>"></td>
 			</tr>
             					
 			<tr>

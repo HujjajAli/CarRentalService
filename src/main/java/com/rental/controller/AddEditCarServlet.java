@@ -25,6 +25,7 @@ public class AddEditCarServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserModel userModel=(UserModel)request.getSession().getAttribute("user");
+		String carId         = request.getParameter("carId");
         String carCompany    = request.getParameter("company");
         String carName       = request.getParameter("carName");
         String carModelStr   = request.getParameter("carModel");
@@ -39,14 +40,28 @@ public class AddEditCarServlet extends HttpServlet {
         carModel.setCarModel(carModelStr);
         carModel.setYear(carYear);
         carModel.setPrice(price);
-        boolean isInserted = carDAO.saveClientCar(carModel);
-
-        // Response
-        if (isInserted) {
-        	request.setAttribute("clientCars", carDAO.getAllCarsByClient(userModel.getAppUserid()));
-            request.getRequestDispatcher(ViewsConstants.CLIENT_DASHBOARD_PAGE).forward(request, response);
-        } else {
-            response.getWriter().println("Failed to Save the Car. Please try again.");
+        if(carId != null && !carId.equals("null") && Integer.parseInt(carId) > 0) {
+        	
+        	carModel.setCarId(Integer.parseInt(carId));
+        	
+        	boolean isInserted = carDAO.updateCar(carModel);
+        	// Response
+        	if (isInserted) {
+        		request.setAttribute("clientCars", carDAO.getAllCarsByClient(userModel.getAppUserid()));
+        		request.getRequestDispatcher(ViewsConstants.CLIENT_DASHBOARD_PAGE).forward(request, response);
+        	} else {
+        		response.getWriter().println("Failed to Update the Car. Please try again.");
+        	}
+        	
+        }else {
+        	boolean isInserted = carDAO.saveClientCar(carModel);
+        	// Response
+        	if (isInserted) {
+        		request.setAttribute("clientCars", carDAO.getAllCarsByClient(userModel.getAppUserid()));
+        		request.getRequestDispatcher(ViewsConstants.CLIENT_DASHBOARD_PAGE).forward(request, response);
+        	} else {
+        		response.getWriter().println("Failed to Save the Car. Please try again.");
+        	}
         }
         
 	}
